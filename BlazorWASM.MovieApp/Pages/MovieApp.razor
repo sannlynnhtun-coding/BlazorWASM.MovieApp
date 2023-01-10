@@ -1,0 +1,38 @@
+﻿@page "/movie-app"
+@inject MovieApi _movieApi
+
+<h3>Movie App</h3>
+
+<input type="text" @bind-value="MovieName" />
+<button class="btn btn-success" @onclick="Search">Search</button>
+
+@if (ShowDetail == false || !ShowDetail)
+{
+    <div class="row">
+        @if (model.IsSuccess)
+        {
+            @foreach (var item in model.Search)
+            {
+                <div class="col-md-3">
+                    <span>@(item.Title) (@(item.Year))</span>
+                    <img _ngcontent-auy-c9="" class="card-img-top"
+                         style="object-fit: cover; height: 300px; width: 100%;"
+                         src="@(item.Poster)">
+                    <button class="btn btn-warning" @onclick="() => Detail(item.ImdbID)">Detail</button>
+                </div>
+            }
+        }
+    </div>
+}
+else
+{
+    <div _ngcontent-auy-c9="" id="DetailsDIV">
+        <p _ngcontent-auy-c9=""><b _ngcontent-auy-c9="">Actors:</b> @(detailModel.Actors)</p>
+        <p _ngcontent-auy-c9=""><b _ngcontent-auy-c9="">Awards:</b> @(detailModel.Awards)</p>
+        <p _ngcontent-auy-c9=""><b _ngcontent-auy-c9="">BoxOffice:</b> @(detailModel.BoxOffice)</p>
+        <p _ngcontent-auy-c9=""><b _ngcontent-auy-c9="">Country:</b> @(detailModel.Country)</p>
+        <p _ngcontent-auy-c9=""><b _ngcontent-auy-c9="">Director:</b> @(detailModel.Director)</p>
+        <p _ngcontent-auy-c9=""><b _ngcontent-auy-c9="">Genre:</b> @(detailModel.Genre)</p>
+    </div>
+    <button class="btn btn-dark" @onclick="Back">Back</button>
+}
